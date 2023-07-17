@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import Searchbar from '../Searchbar/Searchbar';
 import ImageGallery from '../ImageGallery/ImageGallery';
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,32 +17,28 @@ const notifyOptions = {
   theme: 'colored',
 };
 
-class App extends Component {
-  state = {
-    searchQuery: '',
-  };
+function App() {
+  const [searchQuery, setSearchQuery] = useState('');
 
-  handleSubmitForm = query => {
-    if (query === this.state.searchQuery) {
+  const handleSubmitForm = query => {
+    if (query === searchQuery) {
       toast.error(
         `You are currently viewing this "${query}" query`,
         notifyOptions
       );
       return;
     }
-    this.setState({ searchQuery: query });
+    setSearchQuery(query);
   };
-  render() {
-    const { searchQuery } = this.state;
-    return (
-      <ContainerApp>
-        <Searchbar onSubmitFom={this.handleSubmitForm} />
-        <ImageGallery query={searchQuery} />
-        <GlobalStyle />
-        <ToastContainer />
-      </ContainerApp>
-    );
-  }
+
+  return (
+    <ContainerApp>
+      <Searchbar onSubmitFom={handleSubmitForm} />
+      <ImageGallery query={searchQuery} />
+      <GlobalStyle />
+      <ToastContainer />
+    </ContainerApp>
+  );
 }
 
 export default App;
