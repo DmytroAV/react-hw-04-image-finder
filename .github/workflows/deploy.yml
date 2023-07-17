@@ -17,12 +17,7 @@ jobs:
           yarn install
           yarn lint:js
           yarn run build
-          
-      - name: Save state
-        run: env "{REACT_APP_SECRET_KEY_API}={secrets.REACT_APP_SECRET_KEY_API}"
-        
-      - name: Set output
-        run: env "{REACT_APP_SECRET_KEY_API}={secrets.REACT_APP_SECRET_KEY_API}"
+          env "{REACT_APP_SECRET_KEY_API}={secrets.REACT_APP_SECRET_KEY_API}"
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
