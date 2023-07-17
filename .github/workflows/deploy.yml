@@ -18,7 +18,7 @@ jobs:
           yarn lint:js
           yarn run build
           
-          env "${REACT_APP_SECRET_KEY_API}={secrets.REACT_APP_SECRET_KEY_API}"
+          env "${REACT_APP_SECRET_KEY_API}={{secrets.REACT_APP_SECRET_KEY_API}}"
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
