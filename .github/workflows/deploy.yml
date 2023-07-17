@@ -1,0 +1,27 @@
+name: Build and deploy to GitHub Pages
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: DEV_Images_Finder
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Install, lint, build 🔧
+        run: |
+          yarn install
+          yarn lint:js
+          yarn run build
+        env:
+          REACT_APP_SECRET_KEY_API: ${{secrets.REACT_APP_SECRET_KEY_API}}
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: gh-pages
+          folder: build
