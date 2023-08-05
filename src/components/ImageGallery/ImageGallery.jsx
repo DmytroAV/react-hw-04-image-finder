@@ -41,14 +41,15 @@ function ImageGallery({ query }) {
   }, [currentQuery, query]);
 
   useEffect(() => {
-    setIsLoader(true);
     setError(null);
     if (currentQuery === '') {
       return;
     }
     async function getImagesItem(currentQuery) {
+      setIsLoader(true);
       try {
         const data = await fetchImages(currentQuery, page, limit);
+        setIsLoader(false);
         if (data.hits.length <= 0) {
           setIsDisable(false);
           toast.error(
@@ -66,7 +67,7 @@ function ImageGallery({ query }) {
       } catch (error) {
         if (error) {
           if (error.code !== 'ERR_CANCELED') {
-            setIsLoader(HTTP_ERR_MSG);
+            setError(HTTP_ERR_MSG);
           }
         }
       } finally {
